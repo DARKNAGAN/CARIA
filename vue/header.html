@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>CARIA Project</title>
+		<link rel="shortcut icon" type="image/png" href="./images/autres/favicon.png">
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<?php
+	//Attribution des variables de session
+	include("./controleur/membre/functions.php");
+	include("./controleur/membre/constants.php");
+	$lvl=(isset($_SESSION['privilege']))?(int) $_SESSION['privilege']:1;
+	$id=(isset($_SESSION['ideleve']))?(int) $_SESSION['ideleve']:0;
+	$pseudo=(isset($_SESSION['pseudo']))?$_SESSION['pseudo']:'';
+	if(session_id() == '') { session_start(); }
+	?>
+	</head>
+	<body>
+	<div class="container-fluid bg1">	
+<header>
+	<div class="container">
+	<div class="text-center"><a href="home.php"><img src="./images/autres/logo.png"></a></div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+		</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item dropdown">
+						<a class="dropdown-item" href="contact.php">Nos Coordonnées</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompte" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Compte</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="./espace_membre.php">Espace membre</a>
+							<div class="dropdown-divider"></div>
+							<?php if(isset($_SESSION['pseudo'])) { ?>
+							<a class="dropdown-item">Connecter en tant que <?php echo ' '.htmlentities($_SESSION['pseudo'], ENT_QUOTES, 'UTF-8'); ?></a>
+							<a class="dropdown-item" href="./profil.php?action=modifier">Modifier mes informations</a>
+							<a class="dropdown-item" href="./deconnexion.php">Déconnexion</a>
+						  <?php } else { ?>  						  
+							<a class="dropdown-item" href="./inscription.php">Inscription</a>
+							<a class="dropdown-item" href="./connexion.php">Connexion</a>									  
+						  <?php } ?>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</header>
+<div class="container">
+<div class="col">
+<div class="row">

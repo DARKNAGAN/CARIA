@@ -1,0 +1,80 @@
+.bg1 {
+	background:#f7f5e2;
+}
+header {
+		background-image:url("../images/autres/footer.jpg"); 
+}
+footer {
+		background-image:url("../images/autres/footer.jpg"); 
+		margin: 0 auto;
+		overflow:hidden;
+}
+.container-fluid{
+		margin:0 !important;
+		padding:0 !important;
+}
+.numbox{
+		background-image:url("../images/autres/calendrier.png");
+		width:72px;
+		height:78px;
+		overflow:hidden;
+		float:left;
+		margin: 0 19px 0px 10px;
+}
+.numbox span {
+		font:18px/22px 'IM Fell French Canon', sans-serif;
+		color:#fff;
+		font-style:italic;
+		text-align:center;
+		margin-top:4px;
+		display:block;
+}
+.numbox strong {
+		font:30px/36px Georgia, "Times New Roman", Times, serif;
+		color:#f6a82d;
+		font-weight:bold;
+		text-align:center;
+		margin-top:-1px;
+		display:block;
+}
+.img-thumbnailShop{
+		display: block;
+}
+.img-thumbnailEvent{
+		display: block;
+}
+ 
+.img-thumbnailEventCat{
+		display: block;
+}
+.clear {
+		clear:both;
+		line-height:0;
+		font-size:0;
+}
+.map-responsive {
+		overflow:hidden;
+		padding-bottom:56.25%;
+		position:relative;
+}
+
+.map-responsive iframe {
+		left:0;
+		top:0;
+		position:absolute;
+}
+.carousel {
+    height: 60%;
+}
+.carousel-indicators li {
+		background-color: gray!important;
+}
+.carousel-indicators .active {
+		background-color: black!important;
+}
+.carousel-control-next-icon{
+		background-color: gray!important;
+}
+.carousel-control-prev-icon{
+		background-color: gray!important;
+}
