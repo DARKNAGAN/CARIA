@@ -12,15 +12,23 @@ if (empty($_POST['pseudo'])) // Si on la variable est vide, on peut considérer 
 				<h2>Inscription</h2>
 				<form method="post" action="inscription.php" enctype="multipart/form-data">
 							<label class="labelI" >*Pseudo</label><br><input name="pseudo" type="text" id="pseudo" placeholder=" Entre 3 à 15 caractères"/><br><br>
-							<label class="labelI" for="password">*Mot de Passe :</label><input type="password" name="password" id="password" />
-							<label class="labelI" for="confirm">*Confirmer :</label><input type="password" name="confirm" id="confirm" /><br>
+							<label class="labelI" for="password">*Mot de Passe :</label><input type="password" name="password" id="password" placeholder="Mot de passe"/>
+							<label class="labelI" for="confirm">*Confirmer :</label><input type="password" name="confirm" id="confirm" placeholder="Confirmation"/><br>
 						</fieldset>
-							<label class="labelI" for="email">*Votre adresse email :</label><br><input type="text" name="email" id="email" /><br>
+							<label class="labelI" for="email">*Votre adresse email :</label><br><input type="email" name="email" id="email" placeholder="email@mail.fr"/><br>
 						</fieldset>
-							<label class="labelI" for="localisation">Localisation :</label><br><input type="text" name="localisation" id="localisation" /><br>
+							<label class="labelI" for="localisation">Localisation :</label><br><input type="text" name="localisation" id="localisation" placeholder="Adresse" /><br>
+							<label class="labelI" for="prenom">Prenom :</label><br><input type="text" name="prenom" id="prenom" placeholder="Prénom"/><br>
+							<label class="labelI" for="nom">Nom :</label><br><input type="text" name="nom" id="nom" placeholder="Nom"/><br>
+							<label class="labelI" for="sexe">Sexe :</label><br>
+							<div><input type="radio" id="femme" name="sexe" value="FEMME" checked><label for="femme">Femme</label>
+    						<input type="radio" id="homme" name="sexe" value="HOMME"><label for="homme">Homme</label></div>
+							<label class="labelI" for="age">Age :</label><br><input type="number" name="age" id="age" min="5" max="90" placeholder="Age"/><br>
+							<fieldset>
+							<label class="labelI" for="permis">Permis :</label><br><input type="number" name="permis" id="permis" min="0" max="7" placeholder="1 à 7"/><br>
 						</fieldset>
 						<fieldset><legend class="colorbold marg3 pad1">Profil sur le forum</legend>
-							<label for="avatar">Choisissez votre avatar :</label><br><input type="file" name="avatar" id="avatar" /><br>(Taille max : 200Ko)
+							<label for="avatar">Choisissez votre avatar :</label><br><input type="file" name="avatar" id="avatar" accept=".png, .jpg, .jpeg, gif" /><br>
 						</fieldset><br>
 						<p class="btns"><input type="submit" value="S'inscrire" class="button-3"/></p><br>
 						<p>Les champs précédés d'un * sont obligatoires</p>
@@ -33,15 +41,17 @@ if (empty($_POST['pseudo'])) // Si on la variable est vide, on peut considérer 
 else //On est dans le cas traitement
 {
 	$pseudo_erreur1 = NULL;$pseudo_erreur2 = NULL;
-	$email_erreur1 = NULL;$email_erreur2 = NULL;
-	$avatar_erreur = NULL;$avatar_erreur1 = NULL;
-	$avatar_erreur2 = NULL;$avatar_erreur3 = NULL;
+	$email_erreur1 = NULL;
 	$mdp_erreur = NULL;
+	$avatar_erreur3 = NULL;
 	//On récupère les variables
 	$i = 0;
+	$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
 	$pseudo=$_POST['pseudo'];
 	$email = $_POST['email'];
 	$localisation = $_POST['localisation'];
+	$prenom = $_POST['prenom'];
+	$nom = $_POST['nom'];
 	$pass = /*md5*/($_POST['password']);
 	$confirm = /*md5*/($_POST['confirm']);
 	//Verification des champs formulaire
@@ -67,42 +77,11 @@ else //On est dans le cas traitement
 		$email_erreur1 = "Votre adresse email est déjà utilisée par un membre";
 		$i++;
 	}
-	if (!preg_match("#^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]{2,}\.[a-z]{2,4}$#", $email) || empty($email))
+	$extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
+	if (!in_array($extension_upload,$extensions_valides) )
 	{
-		$email_erreur2 = "Votre adresse email n'a pas un format valide";
+		$avatar_erreur3 = "Extension de l'avatar incorrecte";
 		$i++;
-	}
-	if (!empty($_FILES['avatar']['size']))
-	{
-		$maxsize = 200024; //Poid de l'image
-		$maxwidth = 1000; //Largeur de l'image
-		$maxheight = 1000; //Longueur de l'image
-		//Liste des extensions valides
-		$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' );
-		if ($_FILES['avatar']['error'] > 0)
-		{
-			$avatar_erreur = "Erreur lors du transfert de l'avatar : ";
-		}
-		if ($_FILES['avatar']['size'] > $maxsize)
-		{
-			$i++;
-			$avatar_erreur1 = "Le fichier est trop gros : (<strong>".$_FILES['avatar']['size']." Octets</strong>    contre <strong>".$maxsize." Octets</strong>)";
-		}
-		
-		$image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
-		if ($image_sizes[0] > $maxwidth OR $image_sizes[1] > $maxheight)
-		{
-			$i++;
-			$avatar_erreur2 = "Image trop large ou trop longue : 
-			(<strong>".$image_sizes[0]."x".$image_sizes[1]."</strong> contre <strong>".$maxwidth."x".$maxheight."</strong>)";
-		}
-		
-		$extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
-		if (!in_array($extension_upload,$extensions_valides) )
-		{
-			$i++;
-			$avatar_erreur3 = "Extension de l'avatar incorrecte";
-		}
 	}
 	if ($i==0)
 	{
@@ -113,7 +92,6 @@ else //On est dans le cas traitement
 		<p>Cliquez <a href="./espace_membre.php">ici</a> pour revenir dans votre espace membre</p>
 		</div>
 		<?php
-		$nomavatar=(!empty($_FILES['avatar']['size']))?move_avatar($_FILES['avatar']):''; 
 		post_Registre();
 		//Et on définit les variables de sessions
 		$_SESSION['pseudo'] = $pseudo;
@@ -126,11 +104,10 @@ else //On est dans le cas traitement
 		<div class="text-center"><h2>Inscription interrompue</h2><br>
 		<h5><?php echo $i; ?> erreurs se sont produites lors de votre incription</h5><br>
 			<ul> 
-				<p><?php echo $email_erreur1;  $email_erreur2; ?></p>
+				<p><?php echo $email_erreur1; ?></p>
 				<p><?php echo $pseudo_erreur1; $pseudo_erreur2; ?></p>
-				<p><?php echo $avatar_erreur1; $avatar_erreur2; ?></p>
-				<p><?php echo $avatar_erreur3; $avatar_erreur; ?></p>
 				<p><?php echo $mdp_erreur; ?></p>
+				<p><?php echo $avatar_erreur3; ?></p>
 			</ul><br>
 		<p>Cliquez <a href="./inscription.php">ici</a> pour recommencer</p>
 		</div>

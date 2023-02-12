@@ -14,13 +14,27 @@ switch($action)
 		<div class="container-fluid">
 			<section id="content" class="page-content">
 				<div class="container text-center">
-					<h2>Profil de <?php echo stripslashes(htmlspecialchars($data['pseudo'])); ?></h2><br>
-						<img src=".<?php echo $data['imageclient']; ?>" alt="Acun avatar" /><br>
-						<p class="text-2" ><strong>Adresse E-Mail : </strong>
-							<a class=link2 href="mailto:<?php echo stripslashes($data['adressemail']); ?>"> <?php echo stripslashes(htmlspecialchars($data['adressemail'])); ?></a><br/><br>
-							Ce membre est inscrit depuis le <strong><?php echo date('d-m-Y', strtotime(str_replace('/','-',$data['dateenregistre']))); ?></strong><br/><br/>
-							<strong>Localisation : </strong> <?php echo stripslashes(htmlspecialchars($data['adresse'])); ?>
-						</p>
+					<h2>Profil</h2><br>
+					<strong>Pseudo</strong><br>
+					<?php echo stripslashes(htmlspecialchars($data['pseudo'])); ?><br><br>
+					<strong>Avatar</strong><br>
+					<img src=".<?php echo $data['imageclient']; ?>" alt="Acun avatar" /><br><br>
+					<p class="text-2" >
+						<strong>Email</strong><br>
+						<a class=link2 href="mailto:<?php echo stripslashes($data['adressemail']); ?>"> <?php echo stripslashes(htmlspecialchars($data['adressemail'])); ?></a><br/>
+						<strong>Prénom</strong><br>
+						<?php echo stripslashes(htmlspecialchars($data['prenom'])); ?><br>
+						<strong>Nom</strong><br>
+						<?php echo stripslashes(htmlspecialchars($data['nom'])); ?><br>
+						<strong>Age</strong><br>
+						<?php echo stripslashes(htmlspecialchars($data['age'])); ?><br>
+						<strong>Permis</strong><br>
+						<?php echo stripslashes(htmlspecialchars($data['permis'])); ?><br>
+						<strong>Adresse</strong><br>
+						<?php echo stripslashes(htmlspecialchars($data['adresse'])); ?><br><br>
+						<strong>Inscrit depuis :</strong><br>
+						<?php echo date('d F Y', strtotime(str_replace('/','-',$data['dateenregistre']))); ?><br/><br/>
+					</p>
 					</div>
 			</section>
 		</div>
@@ -41,31 +55,40 @@ switch($action)
 					<form method="post" action="profil.php?action=modifier" enctype="multipart/form-data">
 					   <h2>Edition du profil de <?php echo stripslashes(htmlspecialchars($data['pseudo']));?></h2><br>
 							<fieldset>
-								<label class="labelI" for="password">*Mot de passe<br>Nouveau mot de passe</label><br>
+								<h3 class="labelI" for="password">Mot de passe</h3>
+								<label class="labelI" for="password">Nouveau mot de passe</label><br>
 									<input type="password" name="password" id="password" /><br>
 								<label class="labelI" for="confirm">*Confirmation du mot de passe</label><br>
 									<input type="password" name="confirm" id="confirm"  /><br>
-							</fieldset><br>
-					 
-							<fieldset><legend class=colorbold marg3 pad1>Contacts</legend>
+							</fieldset><br><br>					 
+							<fieldset><h2 class=colorbold marg3 pad1>Contacts</h2>
 								<label class="labelI" for="email">Adresse email</label><br>
 									<input type="text" name="email" id="email" value="<?php echo stripslashes($data['adressemail']); ?>" /><br>
-							</fieldset><br>
-							<fieldset><legend class=colorbold marg3 pad1>Informations supplémentaires</legend>
+							</fieldset><br><br>
+							<fieldset><h2 class=colorbold marg3 pad1>Informations supplémentaires</h2>
+								<label class="labelI" for="prenom">Prénom</label><br>
+									<input type="text" name="prenom" id="prenom" readonly="readonly" value="<?php echo stripslashes($data['prenom']); ?>" /><br>
+								<label class="labelI" for="nom">Nom</label><br>
+									<input type="text" name="nom" id="nom" readonly="readonly" value="<?php echo stripslashes($data['nom']); ?>" /><br>
+								<label class="labelI" for="age">Age</label><br>
+									<input type="number" name="age" id="age" readonly="readonly" value="<?php echo stripslashes($data['age']); ?>" /><br>
+								<label class="labelI" for="permis">Permis</label><br>
+									<input type="number" name="permis" id="permis" readonly="readonly" value="<?php echo stripslashes($data['permis']); ?>" /><br>
 								<label class="labelI" for="localisation">Localisation</label><br>
 									<input type="text" name="localisation" id="localisation" value="<?php echo stripslashes($data['adresse']); ?>" />
-							</fieldset><br>
-							<fieldset><legend class=colorbold marg3 pad1>Profil sur le forum</legend>
-								Avatar actuel <img src=".<?php echo $data['imageclient'];?>" alt="pas d avatar" /><br><br>
-								<label class="labelI" for="avatar">Changer mon avatar</label><br>
-									<input type="file" name="avatar" id="avatar" /><br>(Taille max : 200Ko)<br><br>
-								<label><input type="checkbox" name="delete" value="Delete" /> Supprimer mon avatar</label>
+							</fieldset><br><br>
+							<fieldset><h2 class=colorbold marg3 pad1>Profil sur le forum</h2>
+								<label class="labelI" for="avatar">Avatar actuel</label><br>
+								<img src=".<?php echo $data['imageclient'];?>" alt="pas d avatar" /><br><br>
+								<strong class="labelI" for="avatar">Nouvelle image : </strong>
+									<input type="file" name="avatar" id="avatar" accept=".png, .jpg, .jpeg, gif" /><br><br>
+								<strong><input type="checkbox" name="delete" value="Delete" /> Supprimer mon avatar</strong>
 							</fieldset><br>
 						<p>
 							<input type="submit" value="Modifier mon profil" class="button-3"/><br>
 							<input  type="hidden"  id="sent" name="sent" value="1" />
 						</p><br>
-						<p>Les champs avec une * sont obligatoires</p><br>
+						<strong>Les champs avec une * sont obligatoires</strong><br><br>
 					</form>
 				</div>
 			</section>
@@ -77,10 +100,6 @@ switch($action)
 			 //On déclare les variables
 			$mdp_erreur = NULL;
 			$email_erreur1 = NULL;
-			$email_erreur2 = NULL;
-			$avatar_erreur = NULL;
-			$avatar_erreur1 = NULL;
-			$avatar_erreur2 = NULL;
 			$avatar_erreur3 = NULL;
 			//Encore et toujours notre belle variable $i :p
 			$i = 0;
@@ -89,6 +108,7 @@ switch($action)
 			$localisation = $_POST['localisation'];
 			$pass = /*md5*/($_POST['password']);
 			$confirm = /*md5*/($_POST['confirm']);
+			$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png' );
 			//Vérification des champs du formulaire
 			if ($pass != $confirm || empty($confirm) || empty($pass))
 			{
@@ -104,52 +124,19 @@ switch($action)
 					$email_erreur1 = "Votre adresse email est déjà utilisé par un membre";
 					$i++;
 				}
-				if (!preg_match("#^[a-z0-9A-Z._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email) || empty($email))
-				{
-					$email_erreur2 = "Votre nouvelle adresse E-Mail n'a pas un format valide";
-					$i++;
-				}
 			}
-			if (!empty($_FILES['avatar']['size']))
+			$data = get_Pseudo();
+			$extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
+			if (!in_array($extension_upload,$extensions_valides) )
 			{
-				$maxsize = 200024; //Poid de l'image
-				$maxwidth = 1000; //Largeur de l'image
-				$maxheight = 1000; //Longueur de l'image
-				//Liste des extensions valides
-				$extensions_valides = array( 'jpg' , 'jpeg' , 'gif' , 'png', 'bmp' );
-				if ($_FILES['avatar']['error'] > 0)
-				{
-					$avatar_erreur = "Erreur lors du tranfsert de l'avatar : ";
-				}
-				if ($_FILES['avatar']['size'] > $maxsize)
-				{
-					$i++;
-					$avatar_erreur1 = "Le fichier est trop gros :
-					(<strong>".$_FILES['avatar']['size']." Octets</strong>
-					contre <strong>".$maxsize." Octets</strong>)";
-				}
-				
-				$image_sizes = getimagesize($_FILES['avatar']['tmp_name']);
-				if ($image_sizes[0] > $maxwidth OR $image_sizes[1] > $maxheight)
-				{
-					$i++;
-					$avatar_erreur2 = "Image trop large ou trop longue :
-					(<strong>".$image_sizes[0]."x".$image_sizes[1]."</strong> contre
-					<strong>".$maxwidth."x".$maxheight."</strong>)";
-				}
-				
-				$extension_upload = strtolower(substr(  strrchr($_FILES['avatar']['name'], '.')  ,1));
-				if (!in_array($extension_upload,$extensions_valides) )
-				{
-					$i++;
-					$avatar_erreur3 = "Extension de l'avatar incorrecte";
-				}
+				$i++;
+				$avatar_erreur3 = "Extension de l'avatar incorrecte";
 			}
 			if ($i == 0) // Si $i est vide, il n'y a pas d'erreur sur l'avatar
 			{
 				if (!empty($_FILES['avatar']['size']))
 				{
-					post_UpdateAvatar();
+					post_UpdateAvatar($data['pseudo']);
 				}
 				if (isset($_POST['delete']))
 				{

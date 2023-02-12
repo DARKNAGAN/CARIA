@@ -11,8 +11,8 @@ if (!isset($_POST['pseudo'])) { //Page de formulaire
 				<h2>Connexion</h2>
 				<form method="post" action="connexion.php">
 						<br><fieldset>
-							<label class="labelI" for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br>
-							<label class="labelI" for="password">Password :</label><input type="password" name="password" id="password" />
+							<label class="labelI" for="pseudo">Pseudo :</label><br><input name="pseudo" type="text" id="pseudo" /><br>
+							<label class="labelI" for="password">Mot de passe :</label><br><input type="password" name="password" id="password" />
 						</fieldset><br>
 							<p class="btns"><input type="submit" value="Connexion" class="button-3" /></p>
 				</form>

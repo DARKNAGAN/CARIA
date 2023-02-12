@@ -13,13 +13,56 @@ function erreur($err='')
 			</section>
 		</div>');
 }
-function move_avatar($avatar)
+function edit_avatar($avatar, $pseudo)
 {
-    $extension_upload = strtolower(substr(  strrchr($avatar['name'], '.')  ,1));
-    $name = time();
-    $nomavatar = str_replace(' ','',$name).".".$extension_upload;
-    $name = "./images/avatars/".str_replace(' ','',$name).".".$extension_upload;
-    move_uploaded_file($avatar['tmp_name'],$name);
-    return $nomavatar;
+      if (isset ($avatar)){
+		$imagename = $avatar['name'];// exemple.png
+		$source = $avatar['tmp_name'];// /volume1/@tmp/phpiES0qN
+		$locate = "./images/avatars/".$pseudo."/";
+		$dir = $locate."img_user.jpeg";
+    	move_uploaded_file($source,$dir);
+		changeToJpeg($dir,$dir);
+		resize_avatar($dir,$dir);
+		$rdir = substr($dir,1);
+		return $rdir;
+      }
+}
+
+function changeToJpeg($source, $dir) 
+{
+    $ext = substr($_FILES['avatar']['type'],6); //jpeg
+    switch($ext) {
+        case 'jpg':
+            $image = imagecreatefromjpeg($source);
+            break;
+ 
+        case 'jpeg':
+            $image = imagecreatefromjpeg($source);
+            break;
+ 
+        case 'png':
+            $image = imagecreatefrompng($source);
+            break;
+ 
+        case 'gif':
+            $image = imagecreatefromgif($source);
+            break;
+		default: 
+		throw new Exception('Unknown image type.');
+    }
+    imagejpeg($image, $dir);
+}
+
+function resize_avatar($dir,$out ) 
+{
+	list($width, $height) = getimagesize($dir);
+	$modwidth = 900;  //target width
+	$diff = $width / $modwidth;
+	$modheight = $height / $diff;
+
+	$tn = imagecreatetruecolor($modwidth, $modheight);
+	$image = imagecreatefromjpeg($dir);
+	imagecopyresampled($tn, $image, 0, 0, 0, 0, $modwidth, $modheight, $width, $height);
+	imagejpeg($tn, $out);
 }
 ?>
