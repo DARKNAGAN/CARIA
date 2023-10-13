@@ -1,0 +1,16 @@
+<div class="container-fluid">
+	<section id="content" class="page-content">
+		<div class="container text-center">
+			<h2>MAP</h2><br>
+	        <div id="map">
+			<!-- Ici s'affichera la carte -->
+			</div><hr>
+			<h2>Espace Membre</h2>
+			<p>Le site comptent <strong> <?php echo $TotalDesMembres;?></strong> membres.</p>
+			<p>Le nombre de vehicule disponible est de <strong> <?php echo $TotalDesVoitures;?></strong> voiture.</p><br>
+
+			<a href="./profil.php?m=<?php echo $data['idclient']?>&amp;action=consulter"><?php echo $derniermembre;?></a> est le dernier membre.</p><hr>
+			<h2>Contact</h2><br>
+		</div>
+	</section>
+</div>

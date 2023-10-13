@@ -1,7 +1,7 @@
 <?php
 function erreur($err='')
 {
-   $mess=($err!='')? $err:'Une erreur inconnue s\'est produite';
+   $mess=($err='')? $err:'Une erreur inconnue s\'est produite';
    exit('
 		<div class="container-fluid">
 			<section id="content" class="page-content">

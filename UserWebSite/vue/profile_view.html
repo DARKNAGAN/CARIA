@@ -1,0 +1,27 @@
+<div class="container-fluid">
+	<section id="content" class="page-content">
+		<div class="container text-center">
+			<h2>Profil</h2><br>
+			<strong>Pseudo</strong><br>
+			<?php echo stripslashes(htmlspecialchars($data['pseudo'])); ?><br><br>
+			<strong>Avatar</strong><br>
+			<img src=".<?php echo $data['imageclient']; ?>" alt="Aucun avatar" /><br><br>
+			<p class="text-2" >
+				<strong>Email</strong><br>
+				<a class=link2 href="mailto:<?php echo stripslashes($data['adressemail']); ?>"> <?php echo stripslashes(htmlspecialchars($data['adressemail'])); ?></a><br/>
+				<strong>Prénom</strong><br>
+				<?php echo stripslashes(htmlspecialchars($data['prenom'])); ?><br>
+				<strong>Nom</strong><br>
+				<?php echo stripslashes(htmlspecialchars($data['nom'])); ?><br>
+				<strong>Age</strong><br>
+				<?php echo stripslashes(htmlspecialchars($data['age'])); ?><br>
+				<strong>Permis</strong><br>
+				<?php echo stripslashes(htmlspecialchars($data['permis'])); ?><br>
+				<strong>Adresse</strong><br>
+				<?php echo stripslashes(htmlspecialchars($data['adresse'])); ?><br><br>
+				<strong>Inscrit depuis :</strong><br>
+				<?php echo date('d F Y', strtotime(str_replace('/','-',$data['dateenregistre']))); ?><br/><br/>
+			</p>
+			</div>
+	</section>
+</div>

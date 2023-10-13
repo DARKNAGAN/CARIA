@@ -1,0 +1,44 @@
+<div class="container-fluid">
+	<section id="content" class="page-content">
+		<div class="container text-center">
+			<form method="post" action="profil.php?action=modifier" enctype="multipart/form-data">
+			   <h2>Edition du profil de <?php echo stripslashes(htmlspecialchars($data['pseudo']));?></h2><br>
+					<fieldset>
+						<h3 class="labelI" for="password">Mot de passe</h3>
+						<label class="labelI" for="password">Nouveau mot de passe</label><br>
+							<input type="password" name="password" id="password" /><br>
+						<label class="labelI" for="confirm">*Confirmation du mot de passe</label><br>
+							<input type="password" name="confirm" id="confirm"  /><br>
+					</fieldset><br><br>					 
+					<fieldset><h2 class=colorbold marg3 pad1>Contacts</h2>
+						<label class="labelI" for="email">Adresse email</label><br>
+							<input type="text" name="email" id="email" value="<?php echo stripslashes($data['adressemail']); ?>" /><br>
+					</fieldset><br><br>
+					<fieldset><h2 class=colorbold marg3 pad1>Informations supplémentaires</h2>
+						<label class="labelI" for="prenom">Prénom</label><br>
+							<input type="text" name="prenom" id="prenom" readonly="readonly" value="<?php echo stripslashes($data['prenom']); ?>" /><br>
+						<label class="labelI" for="nom">Nom</label><br>
+							<input type="text" name="nom" id="nom" readonly="readonly" value="<?php echo stripslashes($data['nom']); ?>" /><br>
+						<label class="labelI" for="age">Age</label><br>
+							<input type="number" name="age" id="age" readonly="readonly" value="<?php echo stripslashes($data['age']); ?>" /><br>
+						<label class="labelI" for="permis">Permis</label><br>
+							<input type="number" name="permis" id="permis" readonly="readonly" value="<?php echo stripslashes($data['permis']); ?>" /><br>
+						<label class="labelI" for="localisation">Localisation</label><br>
+							<input type="text" name="localisation" id="localisation" value="<?php echo stripslashes($data['adresse']); ?>" />
+					</fieldset><br><br>
+					<fieldset><h2 class=colorbold marg3 pad1>Profil sur le forum</h2>
+						<label class="labelI" for="avatar">Avatar actuel</label><br>
+						<img src=".<?php echo $data['imageclient'];?>" alt="Aucun avatar" /><br><br>
+						<strong class="labelI" for="avatar">Nouvelle image : </strong>
+							<input type="file" name="avatar" id="avatar" accept=".png, .jpg, .jpeg, gif" /><br><br>
+						<strong><input type="checkbox" name="delete" value="Delete" /> Supprimer mon avatar</strong>
+					</fieldset><br>
+				<p>
+					<input type="submit" value="Modifier mon profil" class="button-3"/><br>
+					<input  type="hidden"  id="sent" name="sent" value="1" />
+				</p><br>
+				<strong>Les champs avec une * sont obligatoires</strong><br><br>
+			</form>
+		</div>
+	</section>
+</div>

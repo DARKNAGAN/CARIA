@@ -53,6 +53,9 @@ footer {
 		line-height:0;
 		font-size:0;
 }
+#map{ /* la carte DOIT avoir une hauteur sinon elle n'apparait pas */
+        height:400px;
+}
 .map-responsive {
 		overflow:hidden;
 		padding-bottom:56.25%;

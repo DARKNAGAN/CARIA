@@ -13,6 +13,25 @@ function get_LastMember()
 	$data = $req->fetch();
 	return $data;
 }
+function get_VoitureCount()
+{
+	global $bdd;
+	
+	$TotalDesVoitures = $bdd->query('SELECT COUNT(*) FROM Voiture')->fetchColumn();
+	return $TotalDesVoitures;
+}
+function get_CarInfoId()
+{
+	global $bdd;
+	$id=1;
+
+	//On prend les infos de la voiture
+	$req = $bdd->prepare('SELECT latitude, longitude FROM Voiture WHERE idvoiture=:id');
+	$req->bindValue(':id',$id,PDO::PARAM_INT);
+	$req->execute();
+	$data = $req->fetch();
+	return $data;
+}
 function get_allMember()
 {
 	//NOT USE actually
